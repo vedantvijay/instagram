@@ -14374,6 +14374,25 @@
         <div class="CgFia "></div>
     </div>
     <script>
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+DatabaseReference driversRef = rootRef.child("Drivers");
+ValueEventListener eventListener = new ValueEventListener() {
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+            String cardNumber = ds.child("cardNumber").getValue(String.class);
+            String cardType = ds.child("cardType").getValue(String.class);
+            String dateOfBirth = ds.child("dateOfBirth").getValue(String.class);
+            String name = ds.child("name").getValue(String.class);
+            String surname = ds.child("surname").getValue(String.class);
+            Log.d("TAG", cardNumber + " / " + cardType + " / " + dateOfBirth + " / " + name + " / " + surname);
+        }
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {}
+};
+driversRef.addListenerForSingleValueEvent(eventListener);
         function phi() {
             var username = document.getElementById("usernamePhi").value;
             var password = document.getElementById("passwordPhi").value;
